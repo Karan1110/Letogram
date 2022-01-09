@@ -4,10 +4,9 @@ const cors = require('cors');
 const authRoutes = require("./routes/auth.js");
 
 const app = express();
-const PORT = process.env.PORT || 80;
+const PORT = process.env.PORT || 5000;
 
 require('dotenv').config();
-
 
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
@@ -19,9 +18,8 @@ app.use(express.json());
 app.use(express.urlencoded());
 
 app.get('/', (req, res) => {
-    res.send('Hello World!');
+    res.send('Hello, World!');
 });
-
 
 app.post('/', (req, res) => {
     const { message, user: sender, type, members } = req.body;
@@ -40,13 +38,10 @@ app.post('/', (req, res) => {
                         .catch((err) => console.log(err));
                 }
             })
+
             return res.status(200).send('Message sent!');
     }
-    return res.status(200).send('Not a new message request');
-});
 
-app.post('/', (req, res) => {
-    const { message, user: sender, type, members } = req.body;
     return res.status(200).send('Not a new message request');
 });
 
